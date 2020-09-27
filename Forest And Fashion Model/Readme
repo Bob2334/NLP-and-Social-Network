@@ -1,0 +1,52 @@
+Model 1: The Forest Fire Model
+Consider a world where trees grow along a line known as the T-Ridge. Each spot along the ridge is suitable for growing a tree. Each spring there is a fixed probability, g, of a tree sprouting up in an unoccupied spot. For simplicity, once sprouted, a tree immediately grows to full size and remains unchanged. In the summer, thunderstorms hit the ridge. Each spot on the ridge has a probability of f of being struck by lighting. If a spot is struck and there is a tree, the tree will catch fire and the flame will spread to all contiguous trees. Empty locations act as fire breaks, preventing the fire from spreading.
+1 2 3 4 5 6 7 8 9 10 TT TTTTT T Lighting strikes cell 5.
+T T Destroyed by fire T
+
+Task 1: Build the NetLogo Model
+Build a NetLogo model such that you can model the above mentioned forest fire model. Read the following instructions carefully, and make sure your model have all the required features (including UI components).
+1. It should have at least three buttons: setup, go (once), go (forever).
+2. You should have two sliders, prob-growth for g and prob-lighting for f.
+3. When “setup” is clicked, you should create a one-dimensional ridge from (-10,0) to (10,0). You should change
+the patch color to brown to indicate the range of the ridge.
+4. The model should have two seasons, spring and summer. Use a global variable to represent the current
+season, and use a monitor to display the current season.
+5. Use turtle agent (with ‘tree’ shape) to represent the tree.
+6. Every click on the “go (once)” will cause the season to change. If the new season is spring, each unoccupied
+patch (patch already with tree cannot have another tree spawned in the same patch) will spawn a tree with probability g (from slider ‘prob-growth’). If the new season is summer, each patch will be hit by lighting with probability f. If an occupied patch is hit by lighting, it will be burned down, its two neighbors will also be burned down, and the burning will continue until the fire reaches the end of the ridge or an empty spot (again, see Figure 1 for example).
+7. Use a global variable, ‘avg’, to keep track of average number of trees survived at the end of the summer. You should update ‘avg’ whenever you have a new observation (for a new summer). Create a monitor to display its value.
+8. Create a plot with two pens to track the number of trees survived at the end of the summer and also the value of ‘avg’.
+ 
+Task 2: Find the Optimal Growth Rate
+To make use of the above model, we may assume that we want to achieve high-level of output, which can be measured by the average number of trees survived after each summer, by controlling growth rate. Given a fixed rate of lighting strikes (f = 0.06), can you advise on what would be the best growth rate? Setup proper BehaviorSpace experiments to support your answer by providing both a table and a chart on the performance under different growth rates. For simplicity, you may assume that you are evaluating the growth rates at an interval of 0.05 (0.05, 0.10, ..., 0.95, 1.00).
+Task 3: Interpret the Results
+Look at the result obtained in Task 2, how can you interpret the results? Provide a short paragraph explaining what you observe. In a separate paragraph, describe a real-world phenomenon that can be explained by the Forest Fire model. You have to clearly (but concisely) argue why the analogy can be made.
+
+Model 2: The Model of Fashion 
+
+In this model, we attempt to build a model for “Fashion”, which is a concept that can be easily described at the aggregate level, yet very difficult (if not impossible) to come up with precise definitions. Taken from Wikipedia, “Fashion is a popular style or practice, especially in clothing, footwear, accessories, makeup, body, or furniture. Fashion is a distinctive and often habitual trend in the style in which a person dresses. It is the prevailing styles in behavior and the newest creations of textile designers.” However, it not easily to describe exactly how fashions are formed, we thus are interested in creating an agent-based model to experiment on factors that might contribute to fashion formation.
+
+Task 1: Create the NetLogo “Fashion” Model
+To create a NetLogo model for Fashion, we come up with the following assumptions:
+1. To quantify “Fashion”, we assume that each individual in the fashion industry possess a “special knowledge”, which is represented by a 2D coordinates (x and y).
+2. Some agents are of “higher status” and all other agents are motivated to gain status by following high- status agents (i.e., copying their knowledge). However, status is also a function of rarity: an agent cannot maintain its high status if there are too many other agents with similar knowledge.
+3. Finally, we assume that agents with highest status will want to “preserve” their status by making innovations. In other words, they will want to make some local movement in order to avoid being crowded out by the lower-status followers.
+With these assumptions, we are now ready to design the Fashion model. The Fashion model is a 2D surface where each point represents a particular set of Fashion knowledge. Although it is oversimplifying to represent fashion knowledge using only a 2D surface, it allows fashion dynamics to be visualized easily.
+When agents move in the knowledge space, it represents its change in knowledge (or its chosen fashion position). Therefore, if an agent imitates another agent, it would be viewed as “moving toward” that agent in the knowledge space; whereas if an agent innovates and comes up with new knowledge that other agents lack, it would be viewed as “moving away” from other agents into previously unoccupied space.
+Agents are initially distributed randomly on the surface. Agents have no memory of their own or other agents’ previous positions. The Fashion model should progress iteratively, and in each iteration each agent does the following:
+
+• It counts number of agents in its immediate neighborhood (within its “local radius”).
+• If the count is above the given “threshold”, the agent feels crowded (it considers itself as having high
+status) and will move in opposite direction from the most crowded spot within its “visible radius”. The most crowded spot is determined by finding another agent with most agents surrounding it (within its local radius).
+• If the count is below the given threshold, the agent feels lonely (it considers itself as having low status), and it will move toward the most crowded spot within its visible radius (determined the same way as previously).
+• In both cases above, the distance moved should be determined uniformly randomly between 1 and a given “speed” parameter.
+From the above description, we can see that an agent’s behavior is controlled by four parameters: 1) local-radius, 2) visible-radius, 3) threshold, and 4) speed. For simplicity, we assume that these four parameters are the same for all agents and are to be set using sliders in the interface.
+For visualization purpose, when agents are in “high status” (i.e., feeling crowded), they should be colored “red”; otherwise, if they are in “low status” (i.e., feeling lonely), they should be colored “green”. For smooth visualization, the size of the world should be at least 61 by 61. Try to put at least 500 agents in your model.
+
+Task 2: Measuring Fashion Formation
+As shown in the model, fashion formation is dynamic and decentralized: there could be multiple fashion trends co-existing at the same time, and the size and the location (in the knowledge space) of each fashion trend could change all the time. Design and implement a set of measurements that can be used to describe ongoing fashion trends. These measurements should disclose information on:
+• The diversity of ongoing fashion trends.
+• The strength of each fashion trend.
+• The distribution of agent’s status.
+We prefer “real-time” measurements. But if this is not possible, we can also accept “off-line” measurements, which are to be computed based on a snapshot of the model (you have to define what this is). However, in either case, you should clearly define how these measurements are to be computed, and explain how your measurements answer the above three questions. You should also try to automate the computation of these measurements as much as possible. Provide a clear guideline on how these measurements are to be computed if it’s not directly shown in the model interface.
+With these measurements, comment on your Fashion model; do you think it captures the essence of fashion? What’s missing? How can you further improve the model?
