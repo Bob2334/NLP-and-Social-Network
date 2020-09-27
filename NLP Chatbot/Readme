@@ -1,3 +1,4 @@
+The training data is restricted and customized from https://github.com/bshao001/ChatLearner.git.
 We created a chatbot implemented in TensorFlow based on the seq2seq model, with certain rules integrated.
 We built a persona whose name is Florance. 
 She is a 23 years old young lady from York, England and now studies in Singapore Management University in her third year. 
